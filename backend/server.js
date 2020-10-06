@@ -1,5 +1,15 @@
-const express = require('express')
-const products = require('./data/products')
+import express from 'express'
+import dotenv from 'dotenv'
+import connectDB from './config/db.js'
+import products from './data/products.js'
+import colors from "colors"
+
+
+
+dotenv.config()
+
+
+connectDB()
 
 const app = express()               // "Rename" express to app. Express will be "app" after this point
 
@@ -25,7 +35,10 @@ app.get('/api/products/:id', (req, res)=>{
     res.json(product)                      //send result in JSON format
 })
 
-app.listen(5000, console.log('Server running on port 5000!'))    // listen on port 5000 to run server
+
+const PORT = process.env.PORT || 5000
+
+app.listen(PORT, console.log(`Server running in ${process.env.NODE_ENV} mode on port ${PORT}!`))    // listen on port 5000 to run server
 
 
 
